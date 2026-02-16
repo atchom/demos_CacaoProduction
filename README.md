@@ -138,4 +138,3 @@ Colonnes de tri :
 ☑ Remove rows with duplicate sort values  ← COCHER
 #### Appercu
 <img src="https://github.com/atchom/demos_CacaoProduction/blob/960151be6be13f1e94b1fe7b0945eb4587925cea/Images/delete%20doublons2.png" width="600" alt="Connection Manager">
-
