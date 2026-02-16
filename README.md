@@ -88,8 +88,19 @@ FROM Recoltes;
 - **Data access mode**: `SQL command`
 - **Columns**: Toutes les colonnes sélectionnées
 
+<img src="https://github.com/atchom/demos_CacaoProduction/raw/eb1bbece9c6e5fec47ce439eea02349125eb45cc/Images/connection%20manager.png" width="600" alt="Connection Manager">
 
-
-
-
+### 📝 ÉTAPE 2 : DERIVED COLUMN 1 - CORRECTIONS DE BASE
+|Derived Column Name | Derived Column | Expression|
+|---------------------|----------------|------------|
+|PoidsFevesFraiches | Replace 'PoidsFevesFraiches' | (PoidsFevesFraiches < 0) ? 0 : PoidsFevesFraiches|
+|PoidsCabosses | Replace 'PoidsCabosses' | (PoidsCabosses < 0) ? 0 : PoidsCabosses|
+|TauxExtraction | Replace 'TauxExtraction' | (TauxExtraction <= 0 || ISNULL(TauxExtraction)) ? (PoidsCabosses > 0 ? (PoidsFevesFraiches / PoidsCabosses) * 100 : 0) : TauxExtraction|
+|PrixAchatKG | Replace 'PrixAchatKG' | (PrixAchatKG < 0) ? 0 : PrixAchatKG|
+|Saison | Replace 'Saison' | TRIM((ISNULL(Saison) || (Saison != "Grande" && Saison != "Petite")) ? "Non spécifiée" : Saison)|
+|ModePaiement | Replace 'ModePaiement' | TRIM((ISNULL(ModePaiement) || ModePaiement == "") ? "Non spécifié" : ModePaiement)|
+|StatutPaiement | Replace 'StatutPaiement' | TRIM((ISNULL(StatutPaiement) || StatutPaiement == "") ? "En attente" : StatutPaiement)|
+|Observations | Replace 'Observations' | (ISNULL(Observations)) ? "Aucune observation" : Observations|
+#### Appercu
+<img src="https://github.com/atchom/demos_CacaoProduction/blob/db0f6f0e20700d9fd39bddaac04457930d93d95f/Images/derive_column.png" width="600" alt="Connection Manager">
 
