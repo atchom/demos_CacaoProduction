@@ -50,4 +50,46 @@
     └── MASTER_Staging_Complete.dtsx (tous)
 
 ```
+## 📦 FLUX SSIS : STG_SS_Recoltes.dtsx
+### 📋 STRUCTURE DU FLUX
+```
+[Source OLE DB] 
+    ↓
+[Derived Column 1] (Corrections de base)
+    ↓
+[Derived Column 2] (Calculs et enrichissements)
+    ↓
+[Conditional Split] (Séparation données valides / erreurs)
+    ├── [Valides] → [Sort] → [Destination Net]
+    └── [Erreurs] → [Destination Erreurs]
+```
+### 📥 ÉTAPE 1 : SOURCE OLE DB
+```
+-- Source: Recoltes (table originale)
+SELECT 
+    RecolteID,
+    PlantationID,
+    AgriculteurID,
+    DateRecolte,
+    Saison,
+    PoidsCabosses,
+    PoidsFevesFraiches,
+    TauxExtraction,
+    PrixAchatKG,
+    ModePaiement,
+    StatutPaiement,
+    Observations
+FROM Recoltes;
+```
+#### Configuration :
+
+- **ADO.NET Source Editor**
+- **ADO.NET Connection Manager**: `ATCHOM.CacaoProductionDB.sa`
+- **Data access mode**: `SQL command`
+- **Columns**: Toutes les colonnes sélectionnées
+
+
+
+
+
 
