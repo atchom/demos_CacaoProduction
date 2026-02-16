@@ -104,3 +104,38 @@ FROM Recoltes;
 #### Appercu
 <img src="https://github.com/atchom/demos_CacaoProduction/blob/db0f6f0e20700d9fd39bddaac04457930d93d95f/Images/derive_column.png" width="600" alt="Connection Manager">
 
+### 📊 ÉTAPE 3 : DERIVED COLUMN 2 - CALCULS ET ENRICHISSEMENTS
+|Derived Column Name | Derived Column | Expression|
+|---------------------|----------------|------------|
+|TauxPerte | Add as new column | (PoidsCabosses > 0) ? (((PoidsCabosses - PoidsFevesFraiches) / PoidsCabosses) * 100) : 0|
+|MontantTotal | Add as new column | PoidsFevesFraiches * PrixAchatKG|
+|AnneeRecolte | Add as new column | YEAR(DateRecolte)|
+|MoisRecolte | Add as new column | MONTH(DateRecolte)|
+|DateControle | Add as new column | GETDATE()|
+|QualiteDonnee | Add as new column | (PoidsFevesFraiches <= 0 || PoidsCabosses <= 0) ? "Invalide" : (TauxExtraction < 20 ? "Faible" : (TauxExtraction > 30 ? "Élevé" : "Normal"))|
+
+### 📊 ÉTAPE 3 : DERIVED_MOTIFREJET
+Column Name: MotifRejet
+```
+Expression 
+   (PoidsFevesFraiches <= 0 ? "Poids négatif ou nul, " : "") +
+   (PoidsCabosses <= 0 ? "Poids cabosses nul, " : "") +
+   (TauxExtraction <= 0 ? "Taux extraction invalide, " : "") +
+   (TauxExtraction > 100 ? "Taux extraction > 100%, " : "") +
+   (PlantationID <= 0 ? "PlantationID invalide, " : "") +
+   (AgriculteurID <= 0 ? "AgriculteurID invalide, " : "") +
+   (ISNULL(DateRecolte) ? "Date récolte manquante, " : "")
+```
+### 🔀 ÉTAPE 4 : CONDITIONAL SPLIT
+<img src="https://github.com/atchom/demos_CacaoProduction/blob/40f2cbdcc5384d8ff5a4d1c4d7b1533e2ed4df50/Images/Motif_rejet.png" width="600" alt="Connection Manager">
+
+### 🔄 ÉTAPE 5 : DERIVED SORT
+Colonnes de tri :
+| Input Column    | Sort Type   | Sort Order |
+|-----------------|-------------|------------|
+| RecolteID       | ascending   | 1          |
+
+☑ Remove rows with duplicate sort values  ← COCHER
+#### Appercu
+<img src="https://github.com/atchom/demos_CacaoProduction/blob/960151be6be13f1e94b1fe7b0945eb4587925cea/Images/delete%20doublons2.png" width="600" alt="Connection Manager">
+
