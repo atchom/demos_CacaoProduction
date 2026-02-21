@@ -114,7 +114,7 @@ FROM Recoltes;
 |DateControle | Add as new column | GETDATE()|
 |QualiteDonnee | Add as new column | (PoidsFevesFraiches <= 0 || PoidsCabosses <= 0) ? "Invalide" : (TauxExtraction < 20 ? "Faible" : (TauxExtraction > 30 ? "Élevé" : "Normal"))|
 
-### 📊 ÉTAPE 3 : DERIVED_MOTIFREJET
+### 📊 ÉTAPE 4 :DERIVED COLUMN 2 - DERIVED_MOTIFREJET
 Column Name: MotifRejet
 ```
 Expression 
